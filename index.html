@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Administrativo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body class="bg-light">
+
+  <!-- ÁREA RESTRITA (LOGIN) -->
+  <div id="telaLogin" class="d-flex align-items-center justify-content-center vh-100">
+    <div class="card p-4 shadow" style="width: 22rem;">
+      <h4 class="text-center mb-4">Área Restrita</h4>
+      <form id="formLogin">
+        <div class="mb-3">
+          <label class="form-label">Login</label>
+          <input type="email" class="form-control" placeholder="Digite seu e-mail" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Senha</label>
+          <input type="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Acessar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="telaDashboard" class="container py-5 hidden">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Dashboard</h2>
+      <button class="btn btn-outline-secondary" onclick="voltarLogin()">Logout</button>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <button class="btn btn-warning w-100" disabled>Cadastro de Clientes</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-warning w-100" disabled>Cadastro de Funcionários</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-warning w-100" onclick="mostrarProdutos()">Cadastro de Produtos</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LISTAGEM DE PRODUTOS -->
+  <div id="telaProdutos" class="container py-5 hidden">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Produtos</h2>
+      <button class="btn btn-success" onclick="mostrarFormProduto()">Adicionar</button>
+    </div>
+    <input class="form-control mb-3" type="text" placeholder="Pesquisar…">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Código</th>
+          <th>Descrição</th>
+          <th>Preço</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01</td>
+          <td>Mouse</td>
+          <td>R$ 50,00</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Editar</button>
+            <button class="btn btn-sm btn-danger">Remover</button>
+          </td>
+        </tr>
+        <tr>
+          <td>02</td>
+          <td>Teclado</td>
+          <td>R$ 80,00</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Editar</button>
+            <button class="btn btn-sm btn-danger">Remover</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-secondary mt-3" onclick="mostrarDashboard()">Voltar</button>
+  </div>
+
+  <!-- FORMULÁRIO DE NOVO PRODUTO -->
+  <div id="telaFormProduto" class="container py-5 hidden">
+    <h2>Novo Produto</h2>
+    <form onsubmit="event.preventDefault(); alert('Produto salvo!'); mostrarProdutos();">
+      <div class="mb-3">
+        <label class="form-label">Código</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Descrição</label>
+        <input type="text" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Valor</label>
+        <input type="number" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-success">Salvar</button>
+      <button type="reset" class="btn btn-secondary">Limpar</button>
+      <button type="button" class="btn btn-outline-secondary" onclick="mostrarProdutos()">Voltar</button>
+    </form>
+  </div>
+
+  <script>
+    function esconderTodas() {
+      document.getElementById('telaLogin').classList.add('hidden');
+      document.getElementById('telaDashboard').classList.add('hidden');
+      document.getElementById('telaProdutos').classList.add('hidden');
+      document.getElementById('telaFormProduto').classList.add('hidden');
+    }
+
+    function mostrarDashboard() {
+      esconderTodas();
+      document.getElementById('telaDashboard').classList.remove('hidden');
+    }
+
+    function mostrarProdutos() {
+      esconderTodas();
+      document.getElementById('telaProdutos').classList.remove('hidden');
+    }
+
+    function mostrarFormProduto() {
+      esconderTodas();
+      document.getElementById('telaFormProduto').classList.remove('hidden');
+    }
+
+    function voltarLogin() {
+      esconderTodas();
+      document.getElementById('telaLogin').classList.remove('hidden');
+    }
+
+    document.getElementById('formLogin').addEventListener('submit', function(event) {
+      event.preventDefault();
+      mostrarDashboard();
+    });
+  </script>
+
+</body>
+</html>
